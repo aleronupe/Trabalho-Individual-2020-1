@@ -11,17 +11,17 @@ services:
       # - client
     environment:
       DB_HOST: db_postgres
-    command:
-      # - rake db:create
-      # - rake db:migrate
-      - rails server
-    # entrypoint: ["sh", "/docker-entrypoint.sh"]
     volumes:
-      - ./entrypoint.sh:/entrypoint.sh
+      - ./api:/myapp
+    ports:
+      - "3000:3000"
 
-  # client:
-  #   build: ./client
-  #   command: yarn dev
+  client:
+    build: ./client
+    command: yarn dev
+    ports:
+      - "8080:8080"
+
   db_postgres:
     image: postgres
     ports:
