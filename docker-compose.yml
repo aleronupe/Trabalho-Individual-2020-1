@@ -10,7 +10,9 @@ services:
     depends_on:
       - api_container
     volumes:
+      - ./client/public:/app/public
       - ./client/src:/app/src
+      - ./client/tests:/app/tests
     ports:
       - "8080:8080"
 

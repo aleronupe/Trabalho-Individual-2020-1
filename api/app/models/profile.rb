@@ -30,6 +30,7 @@ class Profile < ApplicationRecord
 
   def shrink_url(url)
     regex_short_urls = /((http|https):\/\/tinyurl\.com\/\w+)/
+    # regex_short_urls = /(http:\/\/tinyurl\.com\/\w+)/
     regex_github_profile_url = /(github\.com\/\w+)/
     regex_github_image_url = /(githubusercontent\.com\/\w+)/
 

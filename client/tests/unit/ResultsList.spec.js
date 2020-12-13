@@ -51,6 +51,7 @@ describe('ResultsList.vue', () => {
 
     expect(wrapper.find('#profile-name').text()).toBe('andre')
     expect(wrapper.find('#profile-username').text()).toBe('andre-filho')
+    // expect(wrapper.find('#profile-username').text()).toBe('teste-falha')
   }),
 
   it('should not render VSubheader component if query is empty', () => {
