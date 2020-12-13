@@ -1,26 +1,32 @@
 version: "3.9"
 
 services:
-  api:
+
+  client_container:
+    build: ./client
+    command: yarn dev
+    links:
+      - api_container
+    depends_on:
+      - api_container
+    volumes:
+      - ./client/src:/app/src
+    ports:
+      - "8080:8080"
+
+  api_container:
     build: ./api
     links:
       - db_postgres
-      # - client
     depends_on:
       - db_postgres
-      # - client
     environment:
       DB_HOST: db_postgres
+      WAIT_HOSTS: db_postgres:5432
     volumes:
       - ./api:/myapp
     ports:
       - "3000:3000"
-
-  client:
-    build: ./client
-    command: yarn dev
-    ports:
-      - "8080:8080"
 
   db_postgres:
     image: postgres

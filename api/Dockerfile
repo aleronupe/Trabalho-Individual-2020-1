@@ -17,6 +17,10 @@ COPY . /myapp
 # Add a script to be executed every time the container starts.
 COPY entrypoint.sh /usr/bin/
 
+ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.7.3/wait /wait
+
+RUN chmod +x /wait
+
 RUN chmod +x /usr/bin/entrypoint.sh
 
 ENTRYPOINT ["entrypoint.sh"]

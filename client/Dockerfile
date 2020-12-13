@@ -1,8 +1,5 @@
 FROM node:lts-alpine
 
-# instala um servidor http simples para servir conteúdo estático
-RUN npm install -g http-server
-
 # faz da pasta 'app' o diretório atual de trabalho
 WORKDIR /app
 
@@ -10,9 +7,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # instala dependências do projeto
-RUN yarn install
+RUN yarn install --all
 
 # copia arquivos e pastas para o diretório atual de trabalho (pasta 'app')
 COPY . .
-
-
