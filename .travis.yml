@@ -19,12 +19,8 @@ before_install:
 
 script:
   - docker-compose up --build -d
-  - docker exec -it trabalho-individual-2020-1_client_container_1 curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-  - docker exec -it trabalho-individual-2020-1_client_container_1 chmod +x ./cc-test-reporter
   - docker exec -it trabalho-individual-2020-1_client_container_1 yarn run test:unit
   - docker exec -it trabalho-individual-2020-1_client_container_1 ./cc-test-reporter format-coverage -t lcov -o coverage/codeclimate.frontend.json coverage/coverage-final.json # Format backend coverage
-  - docker exec -it trabalho-individual-2020-1_api_container_1 curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-  - docker exec -it trabalho-individual-2020-1_api_container_1 chmod +x ./cc-test-reporter
   - docker exec -it trabalho-individual-2020-1_api_container_1 bundle exec rails test
   - docker exec -it trabalho-individual-2020-1_api_container_1 ./cc-test-reporter format-coverage -t simplecov -o coverage/codeclimate.backend.json coverage/.resultset.json # Format backend coverage
   - docker-compose down
