@@ -2,7 +2,19 @@ services:
   - docker
 
 env:
+  global:
+  - CC_TEST_REPORTER_ID=345532df92f3282e1af580aa9ba240593266cd0870948c10cec8463569e11560
   - DOCKER_COMPOSE_VERSION=1.27.3
+
+language: ruby
+
+rvm:
+  - 2.2.0
+
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
 
 before_install:
   - sudo rm /usr/local/bin/docker-compose
@@ -16,4 +28,6 @@ script:
   - docker exec -it trabalho-individual-2020-1_api_container_1 bundle exec rails test
   - docker-compose down
 
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 
