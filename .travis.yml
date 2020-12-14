@@ -20,14 +20,12 @@ before_install:
 script:
   - docker-compose up --build -d
   - docker exec -it trabalho-individual-2020-1_client_container_1 yarn run test:unit
-  - docker exec -it trabalho-individual-2020-1_client_container_1 ./cc-test-reporter format-coverage -t lcov -o coverage/codeclimate.frontend.json coverage/coverage-final.json # Format backend coverage
   - docker exec -it trabalho-individual-2020-1_api_container_1 bundle exec rails test
-  - docker exec -it trabalho-individual-2020-1_api_container_1 ./cc-test-reporter format-coverage -t simplecov -o coverage/codeclimate.backend.json coverage/.resultset.json # Format backend coverage
   - docker-compose down
 
 after_script:
-  - cp ./api/coverage/codeclimate.backend.json ./coverage/codeclimate.backend.json
-  - cp ./api/coverage/codeclimate.frontend.json ./coverage/codeclimate.frontend.json
+  - ./cc-test-reporter format-coverage -t simplecov -o ./coverage/codeclimate.backend.json ./api/coverage/.resultset.json # Format backend coverage
+  - ./cc-test-reporter format-coverage -t lcov -o ./coverage/codeclimate.frontend.json ./client/coverage/coverage-final.json # Format backend coverage
   - ./cc-test-reporter sum-coverage ./coverage/codeclimate.*.json -p 2
   - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then ./cc-test-reporter upload-coverage; fi  # Upload coverage/codeclimate.json
 

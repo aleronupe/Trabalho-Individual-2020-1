@@ -11,9 +11,3 @@ RUN yarn install --all
 
 # copia arquivos e pastas para o diretório atual de trabalho (pasta 'app')
 COPY . .
-
-RUN apk --no-cache add curl
-
-RUN curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-
-RUN chmod +x ./cc-test-reporter
