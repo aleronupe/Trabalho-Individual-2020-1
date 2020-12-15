@@ -24,8 +24,10 @@ script:
   - docker-compose down
 
 after_script:
+  - sed -i 's/\/myapp/.\/api/g' ./api/coverage/.resultset.json
+  - sed -i 's/\/app/.\/client/g' ./client/coverage/lcov.info 
   - ./cc-test-reporter format-coverage -t simplecov -o ./coverage/codeclimate.backend.json ./api/coverage/.resultset.json # Format backend coverage
-  - ./cc-test-reporter format-coverage -t lcov -o ./coverage/codeclimate.frontend.json ./client/coverage/coverage-final.json # Format backend coverage
+  - ./cc-test-reporter format-coverage -t lcov -o ./coverage/codeclimate.frontend.json ./client/coverage/lcov.info # Format backend coverage
   - ./cc-test-reporter sum-coverage ./coverage/codeclimate.*.json -p 2
   - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then ./cc-test-reporter upload-coverage; fi  # Upload coverage/codeclimate.json
 
