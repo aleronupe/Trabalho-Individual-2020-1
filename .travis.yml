@@ -2,7 +2,14 @@ services:
   - docker
 
 env:
+  global:
+  - CC_TEST_REPORTER_ID=345532df92f3282e1af580aa9ba240593266cd0870948c10cec8463569e11560
   - DOCKER_COMPOSE_VERSION=1.27.3
+
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
 
 before_install:
   - sudo rm /usr/local/bin/docker-compose
@@ -16,4 +23,11 @@ script:
   - docker exec -it trabalho-individual-2020-1_api_container_1 bundle exec rails test
   - docker-compose down
 
+after_script:
+  - sudo sed -i 's/\/myapp/.\/api/g' ./api/coverage/.resultset.json
+  - sudo sed -i 's/\/app/.\/client/g' ./client/coverage/lcov.info 
+  - ./cc-test-reporter format-coverage -t simplecov -o ./coverage/codeclimate.backend.json ./api/coverage/.resultset.json # Format backend coverage
+  - ./cc-test-reporter format-coverage -t lcov -o ./coverage/codeclimate.frontend.json ./client/coverage/lcov.info # Format backend coverage
+  - ./cc-test-reporter sum-coverage ./coverage/codeclimate.*.json -p 2
+  - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then ./cc-test-reporter upload-coverage; fi  # Upload coverage/codeclimate.json
 
