@@ -55,10 +55,14 @@ Conforme a configuração do repositório, quando o CI do Travis não passa corr
 
 ![pr-fail](./images/pr-failing.jpg)
 
+### Link para o Travis CI do Projeto: [https://travis-ci.com/github/aleronupe/Trabalho-Individual-2020-1](https://travis-ci.com/github/aleronupe/Trabalho-Individual-2020-1)
+
 ## **3. Obtenção de Métricas**
 
 Conforme descrito na etapa anterior, as métricas de testes foram obtidas conforme a execução desses testes dentro do container, utilizando o [**Code Climate**](https://codeclimate.com/github/aleronupe/Trabalho-Individual-2020-1) para obtenção e exibição dessas métricas. Para isso, foi utilizada a integração dessa ferramenta com o **Travis CI**](https://travis-ci.com/github/aleronupe/Trabalho-Individual-2020-1) através da alteração de comandos no arquivo ```.travis.yml```. Ao final do projeto, a cobertura de métricas exibidas estava da seguinte forma:
 
 ![code-climate](./images/code-climate.jpg)
+
+### Link para o Code Climate do Projeto: [https://codeclimate.com/github/aleronupe/Trabalho-Individual-2020-1](https://codeclimate.com/github/aleronupe/Trabalho-Individual-2020-1)
 
 
