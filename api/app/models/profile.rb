@@ -6,7 +6,7 @@ class Profile < ApplicationRecord
   include PgSearch::Model
 
   validates :name, presence: true
-  validates :username, :url, :image_url, presence: true, uniqueness: true
+  validates :usernam, :url, :image_url, presence: true, uniqueness: true
 
   before_validation :gather_information_from_github
 
